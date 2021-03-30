@@ -1,0 +1,32 @@
+.ShoppingButtonContainer {
+  width: 50%;
+  min-width: 240px;
+  background-color: transparent;
+  text-align: center;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ShoppingButtonContainer button {
+  min-width: 240px;
+  padding: 13px 0px;
+  border: 1px solid#ba4c2a;
+  background-color: transparent;
+  font-size: 15px;
+  color: #ba4c2a;
+  position: absolute;
+  transition: all 0.3s ease-in-out;
+  transition-delay: 0.1s;
+}
+
+.ShoppingButtonContainer div {
+  opacity: 1;
+  transition: all 0.3s ease-in-out;
+  transition-delay: 0s;
+}
+
+.ShoppingButtonContainer button:hover {
+  cursor: pointer;
+}

@@ -1,0 +1,55 @@
+.NavStrip {
+  background-color: transparent;
+  margin-top: 150px;
+  height: 383px;
+  margin-left: 90px;
+  margin-right: 90px;
+  /* min-width: 980px; */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.NavStripItem {
+  height: 100%;
+  width: 30%;
+  /* min-width: 257px; */
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 23px;
+}
+
+.DashLine {
+  width: 18px;
+  height: 5px;
+  box-sizing: border-box;
+  border-top: 3px solid white;
+  margin-bottom: 15px;
+}
+
+.NavStripItem button {
+  color: white;
+  border: 1px solid white;
+  background-color: transparent;
+  font-size: 16px;
+  width: 55%;
+  padding: 10px 0px;
+  transition: all 0.3s ease-in-out;
+}
+
+.NavStripItem button:hover {
+  color: #ba4c2a;
+  background-color: white;
+  cursor: pointer;
+}
+
+.NavStripItem p {
+  /* padding: 5px; */
+  text-align: center;
+}

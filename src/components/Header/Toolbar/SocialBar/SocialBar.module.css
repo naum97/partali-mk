@@ -1,0 +1,10 @@
+.AwesomeFont {
+  font-size: 20px;
+  transition: all 0.2s;
+  box-sizing: border-box;
+}
+
+.AwesomeFont:hover {
+  color: #ba4c2a;
+  cursor: pointer;
+}

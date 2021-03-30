@@ -1,0 +1,14 @@
+.Container {
+  box-sizing: border-box;
+  padding: 5px 18px 8px 8px;
+}
+
+.SliderLabel {
+  box-sizing: border-box;
+  padding-left: 2px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  font-weight: 200;
+  font-size: 14px;
+}

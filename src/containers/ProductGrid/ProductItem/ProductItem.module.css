@@ -1,0 +1,41 @@
+.Item {
+  height: 354px;
+  width: 254px;
+  display: flex;
+  flex-direction: column;
+}
+.Image {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.Image:hover {
+  cursor: pointer;
+}
+
+.Image img {
+  height: 254px;
+  width: 252px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.Item p {
+  text-align: center;
+  margin: 8px;
+}
+
+.Image button {
+  position: absolute;
+  width: 254px;
+  height: 60px;
+  transition: all 0.3s;
+  background-color: rgba(255, 255, 255, 0.6);
+  border: none;
+}
+
+.Image button:hover {
+  cursor: pointer;
+}

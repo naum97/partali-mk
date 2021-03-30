@@ -1,0 +1,31 @@
+.Container {
+  display: flex;
+  flex-direction: column;
+  min-height: 260px;
+  /* min-width: 164px; */
+  justify-content: center;
+  align-items: center;
+  flex-grow: unset;
+  margin: 0px 15px;
+}
+
+.AddToBasketButton {
+  /* min-width: 150px; */
+  min-height: 40px;
+  background-color: black;
+  color: white;
+  transition: all 0.3s ease-in-out;
+  font-size: 15px;
+}
+
+.AddToBasketButton:hover {
+  cursor: pointer;
+}
+.ProductInfo {
+  text-align: center;
+  line-height: 0.5em;
+}
+
+.ProductInfo p {
+  font-size: 13px;
+}

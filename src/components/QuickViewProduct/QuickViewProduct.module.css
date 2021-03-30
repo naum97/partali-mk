@@ -1,0 +1,79 @@
+.Container {
+  display: flex;
+  padding: 5px;
+  position: relative;
+}
+
+.Container img {
+  height: 315px;
+  width: 54%;
+}
+
+.ProductInfo {
+  margin-left: 30px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  width: 46%;
+}
+
+.Select {
+  width: 90%;
+  box-sizing: border-box;
+  min-height: 42px;
+  font-size: 15px;
+  padding: 0px 5px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.Select:hover {
+  cursor: pointer;
+  color: #ba4c2a;
+}
+
+.Select:focus {
+  outline: #ba4c2a solid 1px;
+}
+
+.QuantityInput {
+  width: 16%;
+  height: 42px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  padding: 0px 10px;
+}
+
+.QuantityInput:focus {
+  outline: #ba4c2a solid 1px;
+}
+
+.BuyButton {
+  margin-top: 30px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  color: #ba4c2a;
+  background-color: #f6f3ef;
+  border: none;
+  font-size: 14px;
+  padding: 15px 0px;
+  box-sizing: border-box;
+  transition: all 0.3s;
+  width: 90%;
+}
+
+.BuyButton:hover {
+  cursor: pointer;
+  filter: opacity(0.7);
+}
+
+.MoreDetailLink {
+  color: black;
+  font-size: 15px;
+  width: 30%;
+  padding: 0px 5px;
+  box-sizing: border-box;
+}
+.MoreDetailLink:hover {
+  color: #ba4c2a;
+  cursor: pointer;
+}

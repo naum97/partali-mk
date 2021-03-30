@@ -1,0 +1,11 @@
+.Title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ba4c2a;
+  letter-spacing: 0.25em;
+  text-align: center;
+  font-size: 42px;
+  position: inherit;
+  left: 10px;
+}

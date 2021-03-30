@@ -1,0 +1,40 @@
+.Container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 560px;
+  width: 100%;
+}
+
+.Content {
+  height: 90%;
+  width: 26%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 0.2em;
+  line-height: 1.5;
+  text-align: center;
+
+  &:first-child {
+    border-right: 1px solid #ba4c2a;
+  }
+}
+
+.ContactContainer {
+  margin-top: 20px;
+  display: flex;
+  width: 60%;
+  font-weight: 300;
+}
+
+.ContactIcon {
+  margin-right: 15px;
+  transition: all 0.1s;
+}
+
+.ContactContainer:hover {
+  cursor: pointer;
+  color: #ba4c2a;
+}

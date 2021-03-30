@@ -1,0 +1,24 @@
+.Title {
+  font-size: 24px;
+  letter-spacing: 0.25em;
+  font-weight: 300;
+  max-width: 50%;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.DashLine {
+  width: 40px;
+  height: 5px;
+  border-top: 1px solid rgba(0, 0, 0, 0.6);
+  margin: 40px 0px;
+}
+.Paragraph {
+  width: 50%;
+  text-align: center;
+  font-weight: 200;
+  letter-spacing: 0.05em;
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.5;
+}

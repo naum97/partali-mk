@@ -1,0 +1,85 @@
+.Menu {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  background-color: #f6f3ef;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  overflow: hidden;
+  border-bottom: 1px solid #eee;
+  font-family: "Roboto";
+  font-weight: 300;
+}
+
+.Menu li {
+  padding: 5px 10px;
+  box-sizing: border-box;
+  display: flex;
+  margin: 0;
+  align-items: center;
+  font-size: 17.5px;
+}
+
+.Menu li a {
+  flex-wrap: wrap; /* this one */
+  padding: 10px 30px;
+  width: 100%;
+  color: black;
+  text-decoration: none;
+  height: 90%;
+  box-sizing: border-box;
+  display: block;
+}
+
+.Menu li a:hover {
+  background-color: white;
+  border-radius: 8px;
+  color: #ba4c2a;
+}
+
+.SubMenu {
+  display: flex;
+  position: absolute;
+  /* flex-wrap: wrap; */
+  flex-direction: row;
+  box-sizing: border-box;
+  background-color: #f6f3ef;
+  width: 55%;
+  justify-content: center;
+  padding-bottom: 15px;
+  z-index: 100;
+  margin-top: 305px;
+  transition: visibility 0.2s, opacity 0.3s ease-in-out;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.SubMenu:hover {
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+.SubMenuColumn {
+  width: 33%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.SubMenuColumn a {
+  text-decoration: none;
+  color: black;
+  padding: 20px 35px 10px;
+}
+
+.SubMenuColumn a:hover {
+  color: #ba4c2a;
+}
+
+.BuyButton:hover + .SubMenu {
+  opacity: 1;
+  visibility: visible;
+}

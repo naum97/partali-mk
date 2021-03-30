@@ -1,0 +1,18 @@
+.Toolbar {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  height: 100%;
+  position: relative;
+  z-index: 1000;
+}
+
+.Toolbar div {
+  width: 30%;
+  height: 40%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
