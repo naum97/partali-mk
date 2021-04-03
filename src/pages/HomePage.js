@@ -5,7 +5,7 @@ import ShoppingGrid from "./../components/ShoppingGrid/ShoppingGrid";
 import BrandStrip from "./../components/BrandStrip/BrandStrip";
 import NavigationStrip from "./../components/NavigationStrip/NavigationStrip";
 const HomePage = () => (
-  <div>
+  <div style={{ marginTop: "186px" }}>
     <Strip />
     <MyCarousel />
     <ShoppingGrid />

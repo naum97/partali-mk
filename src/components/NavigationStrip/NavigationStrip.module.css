@@ -29,15 +29,16 @@
   width: 18px;
   height: 5px;
   box-sizing: border-box;
-  border-top: 3px solid white;
-  margin-bottom: 15px;
+  border-top: 2px solid white;
+  margin: 20px 0px;
 }
 
 .NavStripItem button {
   color: white;
   border: 1px solid white;
   background-color: transparent;
-  font-size: 16px;
+  font-size: 15px;
+  border-radius: 8px;
   width: 55%;
   padding: 10px 0px;
   transition: all 0.3s ease-in-out;

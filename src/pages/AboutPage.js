@@ -17,6 +17,7 @@ const AboutPage = (props) => {
           letterSpacing: "0.2em",
           fontSize: "25px",
           fontWeight: "300",
+          marginTop: "186px",
         }}
       >
         <span>ШТО Е ПАРТАЛИ.МК?</span>

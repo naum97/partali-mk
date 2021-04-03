@@ -6,17 +6,23 @@ import ProductsPage from "./pages/ProductsPage";
 import { Route, Switch } from "react-router-dom";
 import AboutPage from "./pages/AboutPage";
 import ContactUsPage from "./pages/ContactUsPage";
-const app = () => (
-  <Layout>
-    <main className={classes.Main}>
+import AdminPage from "./pages/AdminPage";
+const app = () => {
+  return (
+    <React.Fragment>
       <Switch>
-        <Route path="/" exact component={HomePage} />
-        <Route path="/all-products" exact component={ProductsPage} />
-        <Route path="/about-us" exact component={AboutPage} />
-        <Route path="/contact-us" exact component={ContactUsPage} />
+        <Route path="/admin" exact component={AdminPage} />
+        <Layout>
+          <main className={classes.Main}>
+            <Route path="/" exact component={HomePage} />
+            <Route path="/all-products" exact component={ProductsPage} />
+            <Route path="/about-us" exact component={AboutPage} />
+            <Route path="/contact-us" exact component={ContactUsPage} />
+          </main>
+        </Layout>
       </Switch>
-    </main>
-  </Layout>
-);
+    </React.Fragment>
+  );
+};
 
 export default app;
