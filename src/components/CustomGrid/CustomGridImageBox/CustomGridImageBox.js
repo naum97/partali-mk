@@ -1,6 +1,6 @@
 import classes from "./CustomGridImageBox.module.css";
 import React from "react";
-import { Background, Parallax } from "react-parallax";
+import { Parallax } from "react-parallax";
 
 const CustomGridImageBox = (props) => {
   return (

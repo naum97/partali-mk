@@ -36,7 +36,6 @@ const AdminDrawer = (props) => {
     drawerPaper: {
       width: drawerWidth,
     },
-    toolbar: theme.mixins.toolbar,
     listItemText: {
       fontSize: "14px",
     },
@@ -52,10 +51,16 @@ const AdminDrawer = (props) => {
       }}
       anchor="left"
     >
-      <div className={classes.toolbar} />
-      <p style={{ textAlign: "center", position: "relative", top: "0px" }}>
-        PARTALI.MK
-      </p>
+      <h2
+        style={{
+          textAlign: "center",
+          margin: "61.6px 0px",
+          color: "#ba4c2a",
+          letterSpacing: "0.2em",
+        }}
+      >
+        партали.мк
+      </h2>
       <Divider />
       <List>
         <ListItem button onClick={() => handleClick("products")}>

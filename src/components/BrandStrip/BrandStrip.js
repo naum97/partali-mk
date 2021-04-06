@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./BrandStrip.module.css";
-import logo from "./../../assets/logo/logo.png";
+// import logo from "./../../assets/logo/logo.png";
 const brandStrip = () => (
   <div className={classes.BrandStrip}>
     <div className={classes.BrandItem}>

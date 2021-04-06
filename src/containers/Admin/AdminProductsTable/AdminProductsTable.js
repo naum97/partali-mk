@@ -1,7 +1,7 @@
 import * as React from "react";
 import { DataGrid } from "@material-ui/data-grid";
-import image from "./../assets/images/bg_img.webp";
-import image_2 from "../assets/images/boximage1.webp";
+import image from "../../../assets/images/bg_img.webp";
+import image_2 from "../../../assets/images/boximage1.webp";
 
 const columns = [
   {
@@ -9,7 +9,12 @@ const columns = [
     headerName: "Image",
     width: 130,
     renderCell: (params) => (
-      <img src={params.getValue("image")} width="110" height="80" />
+      <img
+        alt="product"
+        src={params.getValue("image")}
+        width="110"
+        height="80"
+      />
     ),
   },
   { field: "id", headerName: "ID", width: 70 },
