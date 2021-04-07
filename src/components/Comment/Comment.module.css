@@ -1,0 +1,31 @@
+.Container{
+    width: 50%;
+    margin: 10px 10px 0 10px;
+}
+
+.ProfilePic{
+    max-width: 60px;
+    max-height: 60px;
+    display: inline-block;
+    border-radius: 50% 50% 50% 50%;
+}
+
+.User{
+    display: inline-block;
+    color: steelblue;
+    position: relative;
+    top: -17px;
+    margin-left: 10px;
+}
+
+.Line{
+    background-color: #d3d3d3;
+    margin: 15px 10px 0 10px;
+    height: 1px;
+    width: auto;
+}
+
+.TextArea{
+    width: 90%;
+    margin: 0 10px 20px 10px;
+}

@@ -8,6 +8,7 @@ import AboutPage from "./pages/AboutPage";
 import ContactUsPage from "./pages/ContactUsPage";
 import AdminPage from "./pages/admin/AdminPage";
 import AddProductPage from "./pages/admin/AddProductPage";
+import ProductPage from ".//components/ProductPage/ProductPage"
 const app = () => {
   return (
     <React.Fragment>
@@ -20,6 +21,7 @@ const app = () => {
             <Route path="/all-products" exact component={ProductsPage} />
             <Route path="/about-us" exact component={AboutPage} />
             <Route path="/contact-us" exact component={ContactUsPage} />
+            <Route path="/product" exact component={ProductPage} />
           </main>
         </Layout>
       </Switch>
