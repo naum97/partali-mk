@@ -7,7 +7,11 @@ const Comment = (props) =>{
         <div className={classes.Container}>
             <div style={{marginBottom:"10px"}}>
                 <img className={classes.ProfilePic} src={props.image} alt=""/>
-                <div className={classes.User}>{props.user}</div>     
+                <div style={{display:"inline-block"}}>
+                <div className={classes.User}>{props.user}</div>
+                <div className={classes.Date}>{props.date}</div>  
+                </div>
+                 
             </div>
             <div>{props.comment}</div>     
             <div className={classes.Line}></div>
