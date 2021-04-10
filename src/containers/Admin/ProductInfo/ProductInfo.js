@@ -57,6 +57,12 @@ const useStyles = makeStyles((theme) => ({
 
 const ProductInfo = (props) => {
   const classes = useStyles();
+
+  //todo: continue here to populate with edit response
+  if (props.editResponse) {
+    console.log(props.editResponse);
+  }
+
   return (
     <div className={classes.root}>
       <div

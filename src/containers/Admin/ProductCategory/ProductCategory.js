@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import { Divider, makeStyles } from "@material-ui/core";
@@ -15,6 +15,8 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
 import AddButton from "../../../components/Admin/AddButton/AddButton";
+import Switch from "@material-ui/core/Switch";
+
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
@@ -41,6 +43,8 @@ const ProductCategory = (props) => {
 
   const [newCategory, setNewCategory] = React.useState("");
   const [newBoutiqueName, setNewBoutiqueName] = React.useState("");
+
+  const [showQuantityTable, setShowQuantityTable] = React.useState(false);
 
   const [errorState, setErrorState] = React.useState(false);
 
@@ -176,7 +180,7 @@ const ProductCategory = (props) => {
           handleHomeEndKeys
           clearOnBlur
           selectOnFocus
-          id="checkboxes-tags-demo"
+          id="checkboxes-1"
           className={classes.collectionsList}
           options={props.categories}
           disableCloseOnSelect
@@ -306,7 +310,7 @@ const ProductCategory = (props) => {
           handleHomeEndKeys
           clearOnBlur
           selectOnFocus
-          id="checkboxes-tags-demo"
+          id="checkboxes-2"
           className={classes.collectionsList}
           options={props.boutiques}
           disableCloseOnSelect
@@ -333,6 +337,23 @@ const ProductCategory = (props) => {
           )}
         />
       </div>
+      <FormControlLabel
+        control={
+          <Switch
+            checked={showQuantityTable}
+            onChange={() => setShowQuantityTable(!showQuantityTable)}
+            name="checkedB"
+            color="primary"
+          />
+        }
+        label="Manage stock"
+      />
+      <Dialog
+        open={showQuantityTable}
+        onClose={() => setShowQuantityTable(false)}
+      >
+        <DialogTitle>Quanity table</DialogTitle>
+      </Dialog>
       <AddButton
         icon={<AddIcon />}
         margin="15px 0px"
@@ -340,7 +361,7 @@ const ProductCategory = (props) => {
         padding="20px 0px"
         clicked={() => props.submitData(true)}
       >
-        Add product
+        {props.editResponse ? "Save changes" : "Add product"}
       </AddButton>
     </div>
   );

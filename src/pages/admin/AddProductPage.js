@@ -1,9 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AdminLayout from "../../components/Admin/AdminLayout/AdminLayout";
 import axios from "axios";
 import ProductInfo from "../../containers/Admin/ProductInfo/ProductInfo";
 import ProductCategory from "../../containers/Admin/ProductCategory/ProductCategory";
-
 const AddProductPage = (props) => {
   const [showSaleInput, setShowSaleInput] = React.useState(false);
   const [productSalePrice, setSalePrice] = React.useState(0);
@@ -39,6 +38,8 @@ const AddProductPage = (props) => {
     "Бутик 2",
     "Бутик 3",
   ]);
+
+  const [editResponse, setEditResponse] = React.useState(null);
   const handleProductName = (event, newValue) => {
     if (event.target.value === "") {
       setProductName("Product name");
@@ -58,10 +59,27 @@ const AddProductPage = (props) => {
       name: productName,
       description: productDescription,
       price: productPrice,
-      category: selectedProductCollections,
+      // todo: fix this later, remove join, add manyToMany relationship
+      collection: selectedProductCollections.join(),
       amountInStock: 250,
       supplierName: productSupplier,
-      colors: selectedColors,
+      productDetails: [
+        {
+          color: "red",
+          size: "L",
+          stock: 10,
+        },
+        {
+          color: "red",
+          size: "M",
+          stock: 7,
+        },
+        {
+          color: "black",
+          size: "S",
+          stock: 100,
+        },
+      ],
     };
     axios
       .post("http://localhost:8080/api/v1/products/add-product", data)
@@ -70,6 +88,81 @@ const AddProductPage = (props) => {
         alert("Succesfully added product\n" + response.data);
       });
   };
+
+  useEffect(() => {
+    const id = props.location.state;
+    if (!id || id.length == 0) {
+      return;
+    }
+
+    const queryParam = id.join();
+    axios
+      .get("http://localhost:8080/api/v1/products?id=" + queryParam)
+      .then((response) => {
+        setEditResponse(response.data);
+      });
+  }, []);
+
+  let productInfoComponents = (editResponse && (
+    <React.Fragment>
+      <ProductInfo
+        productName={productName}
+        handleChange={handleProductName}
+        handleProductPrice={setProductPrice}
+        showSaleInput={showSaleInput}
+        handleSale={setShowSaleInput}
+        handleSaleChange={handleProductSalePrice}
+        productSalePrice={productSalePrice}
+        handleProductDescription={setProductDescription}
+        colors={productColors}
+        handleColors={setProductColors}
+        sizes={productSizes}
+        handleSizes={setProductSizes}
+        selectColors={setSelectedColors}
+        selectSizes={setSelectedSizes}
+        editResponse={editResponse}
+      />
+      <ProductCategory
+        categories={productCollections}
+        handleproductCollections={setProductCollections}
+        boutiques={boutiques}
+        handleBoutiques={setBoutiques}
+        selectBoutique={setProductSupplier}
+        selectCollections={setSelectedProductCollections}
+        submitData={submitData}
+        editResponse={editResponse}
+      />
+    </React.Fragment>
+  )) || (
+    <React.Fragment>
+      <ProductInfo
+        productName={productName}
+        handleChange={handleProductName}
+        handleProductPrice={setProductPrice}
+        showSaleInput={showSaleInput}
+        handleSale={setShowSaleInput}
+        handleSaleChange={handleProductSalePrice}
+        productSalePrice={productSalePrice}
+        handleProductDescription={setProductDescription}
+        colors={productColors}
+        handleColors={setProductColors}
+        sizes={productSizes}
+        handleSizes={setProductSizes}
+        selectColors={setSelectedColors}
+        selectSizes={setSelectedSizes}
+      />
+      <ProductCategory
+        categories={productCollections}
+        handleproductCollections={setProductCollections}
+        boutiques={boutiques}
+        handleBoutiques={setBoutiques}
+        selectBoutique={setProductSupplier}
+        selectCollections={setSelectedProductCollections}
+        submitData={submitData}
+      />
+    </React.Fragment>
+  );
+
   return (
     <AdminLayout>
       <div
@@ -79,31 +172,7 @@ const AddProductPage = (props) => {
           margin: "0px 110px",
         }}
       >
-        <ProductInfo
-          productName={productName}
-          handleChange={handleProductName}
-          handleProductPrice={setProductPrice}
-          showSaleInput={showSaleInput}
-          handleSale={setShowSaleInput}
-          handleSaleChange={handleProductSalePrice}
-          productSalePrice={productSalePrice}
-          handleProductDescription={setProductDescription}
-          colors={productColors}
-          handleColors={setProductColors}
-          sizes={productSizes}
-          handleSizes={setProductSizes}
-          selectColors={setSelectedColors}
-          selectSizes={setSelectedSizes}
-        />
-        <ProductCategory
-          categories={productCollections}
-          handleproductCollections={setProductCollections}
-          boutiques={boutiques}
-          handleBoutiques={setBoutiques}
-          selectBoutique={setProductSupplier}
-          selectCollections={setSelectedProductCollections}
-          submitData={submitData}
-        />
+        {productInfoComponents}
       </div>
     </AdminLayout>
   );

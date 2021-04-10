@@ -1,9 +1,9 @@
 import React from "react";
-import AdminProductsTable from "../../containers/Admin/AdminProductsTable/AdminProductsTable";
 import AddIcon from "@material-ui/icons/Add";
 import { useHistory } from "react-router-dom";
 import AdminLayout from "../../components/Admin/AdminLayout/AdminLayout";
 import AddButton from "../../components/Admin/AddButton/AddButton";
+import ProductTable from "../../containers/Admin/ProductTable/ProductTable";
 
 const AdminPage = () => {
   const history = useHistory();
@@ -12,9 +12,10 @@ const AdminPage = () => {
     <AdminLayout>
       <div
         style={{
-          width: "100%",
+          width: "90%",
           display: "flex",
           justifyContent: "space-between",
+          margin: "auto",
         }}
       >
         <h1>Products</h1>
@@ -27,7 +28,7 @@ const AdminPage = () => {
           Add product
         </AddButton>
       </div>
-      <AdminProductsTable />
+      <ProductTable />
     </AdminLayout>
   );
 };
