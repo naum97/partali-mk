@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { DataGrid, GridToolbar } from "@material-ui/data-grid";
+import { DataGrid } from "@material-ui/data-grid";
 import image from "../../../assets/images/bg_img.webp";
 
 import ProductTableToolbar from "./ProductTableToolbar";
@@ -32,7 +32,7 @@ const columns = [
     headerAlign: "left",
   },
   {
-    field: "amountInStock2",
+    field: "inventory",
     headerName: "Inventory",
     flex: 0.3,
     headerAlign: "left",
@@ -41,14 +41,21 @@ const columns = [
 
 const ProductTable = (props) => {
   const [isLoading, setIsLoading] = useState(false);
+  // these rows are displayed in the table at all times
   const [rows, setRows] = useState([]);
+
+  // these are all the rows of products pulled from the backend
   const [initialRows, setInitialRows] = useState([]);
+
+  // currently selected rows of products
   const [selectedRows, setSelectedRows] = useState([]);
 
   const handleInitialResponse = (data) => {
     setInitialRows(data);
     setRows(data);
   };
+
+  // this runs on componentMount, only once at start
   useEffect(() => {
     setIsLoading(true);
     axios
@@ -63,7 +70,7 @@ const ProductTable = (props) => {
   }, []);
 
   const rowSearch = (value) => {
-    if (!value || value.length == 0) {
+    if (!value || value.length === 0) {
       setRows(initialRows);
       return;
     }
@@ -100,7 +107,7 @@ const ProductTable = (props) => {
         loading={isLoading}
         onSelectionModelChange={(event) =>
           setSelectedRows(event.selectionModel)
-        } //this return the id as an array
+        }
       />
     </div>
   );

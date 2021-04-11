@@ -1,17 +1,14 @@
 import React, { useEffect } from "react";
 import AdminLayout from "../../components/Admin/AdminLayout/AdminLayout";
 import axios from "axios";
-import ProductInfo from "../../containers/Admin/ProductInfo/ProductInfo";
-import ProductCategory from "../../containers/Admin/ProductCategory/ProductCategory";
+import ProductForm from "../../containers/Admin/ProductForm/ProductForm";
+import AdminProductContext from "../../context/AdminProductContext";
 const AddProductPage = (props) => {
-  const [showSaleInput, setShowSaleInput] = React.useState(false);
-  const [productSalePrice, setSalePrice] = React.useState(0);
-
   const [productName, setProductName] = React.useState("Product name");
   const [productDescription, setProductDescription] = React.useState("");
   const [productPrice, setProductPrice] = React.useState(0);
-  const [productStock, setProductStock] = React.useState(0);
-  const [productSupplier, setProductSupplier] = React.useState("");
+  // const [productStock, setProductStock] = React.useState(0);
+  const [productBoutique, setProductBoutique] = React.useState("");
   const [productColors, setProductColors] = React.useState([
     "red",
     "green",
@@ -29,6 +26,7 @@ const AddProductPage = (props) => {
     setSelectedProductCollections,
   ] = React.useState([]);
 
+  //todo: use these to create productDetails objects
   const [selectedColors, setSelectedColors] = React.useState([]);
   const [selectedSizes, setSelectedSizes] = React.useState([]);
 
@@ -40,18 +38,6 @@ const AddProductPage = (props) => {
   ]);
 
   const [editResponse, setEditResponse] = React.useState(null);
-  const handleProductName = (event, newValue) => {
-    if (event.target.value === "") {
-      setProductName("Product name");
-      return;
-    }
-    setProductName(event.target.value);
-  };
-
-  const handleProductSalePrice = (newValue) => {
-    const salePrice = (newValue / 100) * productPrice;
-    setSalePrice(productPrice - salePrice);
-  };
 
   //todo: finish this
   const submitData = () => {
@@ -59,10 +45,10 @@ const AddProductPage = (props) => {
       name: productName,
       description: productDescription,
       price: productPrice,
-      // todo: fix this later, remove join, add manyToMany relationship
-      collection: selectedProductCollections.join(),
+      collection: selectedProductCollections,
       amountInStock: 250,
-      supplierName: productSupplier,
+      supplierName: productBoutique,
+      //todo: implement product details creation, need to add table to manage stock
       productDetails: [
         {
           color: "red",
@@ -89,9 +75,10 @@ const AddProductPage = (props) => {
       });
   };
 
+  //this is NOT used here, will be used in EditProduct.js in the future
   useEffect(() => {
     const id = props.location.state;
-    if (!id || id.length == 0) {
+    if (!id || id.length === 0) {
       return;
     }
 
@@ -101,68 +88,27 @@ const AddProductPage = (props) => {
       .then((response) => {
         setEditResponse(response.data);
       });
-  }, []);
+  }, [props.location.state]);
 
-  let productInfoComponents = (editResponse && (
-    <React.Fragment>
-      <ProductInfo
-        productName={productName}
-        handleChange={handleProductName}
-        handleProductPrice={setProductPrice}
-        showSaleInput={showSaleInput}
-        handleSale={setShowSaleInput}
-        handleSaleChange={handleProductSalePrice}
-        productSalePrice={productSalePrice}
-        handleProductDescription={setProductDescription}
-        colors={productColors}
-        handleColors={setProductColors}
-        sizes={productSizes}
-        handleSizes={setProductSizes}
-        selectColors={setSelectedColors}
-        selectSizes={setSelectedSizes}
-        editResponse={editResponse}
-      />
-      <ProductCategory
-        categories={productCollections}
-        handleproductCollections={setProductCollections}
-        boutiques={boutiques}
-        handleBoutiques={setBoutiques}
-        selectBoutique={setProductSupplier}
-        selectCollections={setSelectedProductCollections}
-        submitData={submitData}
-        editResponse={editResponse}
-      />
-    </React.Fragment>
-  )) || (
-    <React.Fragment>
-      <ProductInfo
-        productName={productName}
-        handleChange={handleProductName}
-        handleProductPrice={setProductPrice}
-        showSaleInput={showSaleInput}
-        handleSale={setShowSaleInput}
-        handleSaleChange={handleProductSalePrice}
-        productSalePrice={productSalePrice}
-        handleProductDescription={setProductDescription}
-        colors={productColors}
-        handleColors={setProductColors}
-        sizes={productSizes}
-        handleSizes={setProductSizes}
-        selectColors={setSelectedColors}
-        selectSizes={setSelectedSizes}
-      />
-      <ProductCategory
-        categories={productCollections}
-        handleproductCollections={setProductCollections}
-        boutiques={boutiques}
-        handleBoutiques={setBoutiques}
-        selectBoutique={setProductSupplier}
-        selectCollections={setSelectedProductCollections}
-        submitData={submitData}
-      />
-    </React.Fragment>
-  );
-
+  const formProps = {
+    productName,
+    setProductName,
+    productPrice,
+    setProductPrice,
+    setProductDescription,
+    productColors,
+    setProductColors,
+    setSelectedColors,
+    productSizes,
+    setProductSizes,
+    setSelectedSizes,
+    productCollections,
+    setProductCollections,
+    setSelectedProductCollections,
+    boutiques,
+    setBoutiques,
+    setProductBoutique,
+  };
   return (
     <AdminLayout>
       <div
@@ -172,7 +118,9 @@ const AddProductPage = (props) => {
           margin: "0px 110px",
         }}
       >
-        {productInfoComponents}
+        <AdminProductContext.Provider value={formProps}>
+          <ProductForm submitData={submitData} />
+        </AdminProductContext.Provider>
       </div>
     </AdminLayout>
   );

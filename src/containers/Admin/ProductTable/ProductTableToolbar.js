@@ -29,15 +29,19 @@ const ProductTableToolbar = (props) => {
   const history = useHistory();
 
   const editProduct = (selectedRows) => {
-    if (!selectedRows || selectedRows.length == 0) {
+    if (!selectedRows || selectedRows.length === 0) {
+      //todo: maybe disable buttons here instead of alert
       alert("Please select a product for editing!");
       return;
     }
 
     if (selectedRows.length > 1) {
+      //todo: maybe disable buttons here instead of alert
       alert("Please select a single product for editing!");
       return;
     }
+
+    //todo: change this to /admin/edit-product
     history.push({
       pathname: "/admin/add-product",
       state: selectedRows,
