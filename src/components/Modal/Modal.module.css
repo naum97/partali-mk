@@ -1,6 +1,7 @@
 .Modal {
   position: fixed;
-  display: block;
+  display: flex;
+  flex-direction: column;
   z-index: 10000;
   background-color: white;
   width: 944px;

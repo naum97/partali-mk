@@ -8,9 +8,11 @@ const context = {
   setProductDescription: () => {},
   productColors: [],
   setProductColors: () => {},
+  selectedColors: [],
   setSelectedColors: () => {},
   productSizes: [],
   setProductSizes: () => {},
+  selectedSizes: [],
   setSelectedSizes: () => {},
   productCollections: [],
   setProductCollections: () => {},
@@ -18,6 +20,8 @@ const context = {
   boutiques: [],
   setBoutiques: () => {},
   setProductBoutique: () => {},
+  productDetails: [],
+  setProductDetails: () => {},
 };
 
 const AdminProductContext = React.createContext(context);

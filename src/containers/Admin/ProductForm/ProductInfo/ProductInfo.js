@@ -40,7 +40,7 @@ const ProductInfo = () => {
   const [disableOriginalPrice, setDisabled] = React.useState(false);
   const context = useContext(AdminProductContext);
   const handleSaleChange = (discount) => {
-    //todo: make this more robust
+    //todo: make this more robust (disabled?)
     if (!context.productPrice || context.productPrice === 0) {
       alert("Please enter price first!");
       return;

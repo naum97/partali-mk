@@ -30,22 +30,22 @@ const ProductBoutiques = (props) => {
   const context = useContext(AdminProductContext);
   const classes = useStyles();
   const [showBoutiquesDialog, setShowBoutiquesDialog] = React.useState(false);
-  const [newBoutiqueName, setNewBoutiqueName] = React.useState("");
+  const [boutiqueName, setBoutiqueName] = React.useState("");
 
   const addBoutique = (event) => {
     event.preventDefault();
-    if (!newBoutiqueName || !newBoutiqueName.length) {
+    if (!boutiqueName || !boutiqueName.length) {
       alert("Boutique name can't be empty");
       return;
     }
-    if (context.boutiques.includes(newBoutiqueName)) {
+    if (context.boutiques.includes(boutiqueName)) {
       alert(
-        "Boutique " + newBoutiqueName + " already exists. Please add new one!"
+        "Boutique " + boutiqueName + " already exists. Please add new one!"
       );
       return;
     }
-    alert("Succesfully added boutique " + newBoutiqueName);
-    context.setBoutiques([...context.boutiques, newBoutiqueName]);
+    alert("Succesfully added boutique " + boutiqueName);
+    context.setBoutiques([...context.boutiques, boutiqueName]);
     setShowBoutiquesDialog(false);
   };
 
@@ -82,7 +82,7 @@ const ProductBoutiques = (props) => {
               fullWidth
               label="Name"
               type="text"
-              onChange={(event) => setNewBoutiqueName(event.target.value)}
+              onChange={(event) => setBoutiqueName(event.target.value)}
             />
             <TextField
               margin="normal"

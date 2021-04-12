@@ -126,7 +126,6 @@ const ProductCollections = () => {
         className={classes.collectionsList}
         options={context.productCollections}
         disableCloseOnSelect
-        //todo: this is an array - handle array in AddProductPage container
         onChange={(event, newValue) =>
           context.setSelectedProductCollections(newValue)
         }

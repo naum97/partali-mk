@@ -26,7 +26,6 @@ const AddProductPage = (props) => {
     setSelectedProductCollections,
   ] = React.useState([]);
 
-  //todo: use these to create productDetails objects
   const [selectedColors, setSelectedColors] = React.useState([]);
   const [selectedSizes, setSelectedSizes] = React.useState([]);
 
@@ -38,6 +37,7 @@ const AddProductPage = (props) => {
   ]);
 
   const [editResponse, setEditResponse] = React.useState(null);
+  const [productDetails, setProductDetails] = React.useState([]);
 
   //todo: finish this
   const submitData = () => {
@@ -48,24 +48,7 @@ const AddProductPage = (props) => {
       collection: selectedProductCollections,
       amountInStock: 250,
       supplierName: productBoutique,
-      //todo: implement product details creation, need to add table to manage stock
-      productDetails: [
-        {
-          color: "red",
-          size: "L",
-          stock: 10,
-        },
-        {
-          color: "red",
-          size: "M",
-          stock: 7,
-        },
-        {
-          color: "black",
-          size: "S",
-          stock: 100,
-        },
-      ],
+      productDetails: productDetails,
     };
     axios
       .post("http://localhost:8080/api/v1/products/add-product", data)
@@ -98,9 +81,11 @@ const AddProductPage = (props) => {
     setProductDescription,
     productColors,
     setProductColors,
+    selectedColors,
     setSelectedColors,
     productSizes,
     setProductSizes,
+    selectedSizes,
     setSelectedSizes,
     productCollections,
     setProductCollections,
@@ -108,6 +93,8 @@ const AddProductPage = (props) => {
     boutiques,
     setBoutiques,
     setProductBoutique,
+    productDetails,
+    setProductDetails,
   };
   return (
     <AdminLayout>
