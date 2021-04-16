@@ -10,7 +10,6 @@ import AddButton from "../../../../components/Admin/AddButton/AddButton";
 const ProductQuantityManager = (props) => {
   const [showQuantityTable, setShowQuantityTable] = React.useState(false);
   const [rows, setRows] = React.useState([]);
-  const [totalStock, setTotalStock] = React.useState(0);
   // const [checked, setChecked] = React.useState(false);
 
   const context = useContext(AdminProductContext);
@@ -54,7 +53,7 @@ const ProductQuantityManager = (props) => {
         sum += row.stock;
       }
     });
-    setTotalStock(parseInt(parseInt(newValue) + parseInt(sum)));
+    context.setTotalStock(parseInt(parseInt(newValue) + parseInt(sum)));
     setRows(newRows);
   };
 
@@ -113,7 +112,7 @@ const ProductQuantityManager = (props) => {
       >
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <h2>{context.productName}</h2>
-          <h2>Total stock: {totalStock}</h2>
+          <h2>Total stock: {context.totalStock}</h2>
         </div>
 
         <DataGrid rowHeight={100} rows={rows} columns={columns} pageSize={20} />

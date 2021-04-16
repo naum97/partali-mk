@@ -38,16 +38,19 @@ const ProductInfo = () => {
   const [showSaleInput, setShowSaleInput] = React.useState(false);
   const [productSalePrice, setSalePrice] = React.useState(false);
   const [disableOriginalPrice, setDisabled] = React.useState(false);
+  const [initialPrice, setInitialPrice] = React.useState(null);
+  const [disableSwitch, setDisabledSwitch] = React.useState(true);
+
   const context = useContext(AdminProductContext);
+
+  const handlePriceChange = (price) => {
+    setDisabledSwitch(!price || !price.length);
+    context.setProductPrice(price);
+  };
   const handleSaleChange = (discount) => {
-    //todo: make this more robust (disabled?)
-    if (!context.productPrice || context.productPrice === 0) {
-      alert("Please enter price first!");
-      return;
-    }
-    const salePrice = (discount / 100) * context.productPrice;
-    setSalePrice(context.productPrice - salePrice);
-    context.setProductPrice(context.productPrice - salePrice);
+    const salePrice = (discount / 100) * initialPrice;
+    setSalePrice(initialPrice - salePrice);
+    context.setProductPrice(initialPrice - salePrice);
   };
   const classes = useStyles();
   return (
@@ -67,7 +70,7 @@ const ProductInfo = () => {
               <InputAdornment position="start">МКД</InputAdornment>
             ),
           }}
-          onChange={(event) => context.setProductPrice(event.target.value)}
+          onChange={(event) => handlePriceChange(event.target.value)}
           value={context.productPrice}
           disabled={disableOriginalPrice}
         />
@@ -77,6 +80,7 @@ const ProductInfo = () => {
           id="outlined-margin-dense"
           className={classes.ribbon}
           variant="outlined"
+          onChange={(event) => context.setProductRibbon(event.target.value)}
         />
       </div>
       <FormControlLabel
@@ -87,9 +91,11 @@ const ProductInfo = () => {
             onChange={() => {
               setShowSaleInput(!showSaleInput);
               setDisabled(!disableOriginalPrice);
+              setInitialPrice(context.productPrice);
             }}
             name="checkedB"
             color="primary"
+            disabled={disableSwitch}
           />
         }
         label="On sale"

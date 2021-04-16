@@ -5,21 +5,17 @@ import ProductForm from "../../containers/Admin/ProductForm/ProductForm";
 import AdminProductContext from "../../context/AdminProductContext";
 const AddProductPage = (props) => {
   const [productName, setProductName] = React.useState("Product name");
-  const [productDescription, setProductDescription] = React.useState("");
-  const [productPrice, setProductPrice] = React.useState(0);
-  // const [productStock, setProductStock] = React.useState(0);
-  const [productBoutique, setProductBoutique] = React.useState("");
-  const [productColors, setProductColors] = React.useState([
-    "red",
-    "green",
-    "blue",
-  ]);
-  const [productSizes, setProductSizes] = React.useState(["S", "M", "L"]);
-  const [productCollections, setProductCollections] = React.useState([
-    "Јакни",
-    "Сакоа",
-    "Капути",
-  ]);
+  const [productDescription, setProductDescription] = React.useState(null);
+  const [productCare, setProductCare] = React.useState(null);
+  const [productMaterials, setProductMaterials] = React.useState(null);
+  const [productRibbon, setProductRibbon] = React.useState(null);
+  const [productPrice, setProductPrice] = React.useState(null);
+  const [totalStock, setTotalStock] = React.useState(0);
+  const [productBoutique, setProductBoutique] = React.useState(null);
+
+  const [productColors, setProductColors] = React.useState([]);
+  const [productSizes, setProductSizes] = React.useState([]);
+  const [productCollections, setProductCollections] = React.useState([]);
 
   const [
     selectedProductCollections,
@@ -29,25 +25,22 @@ const AddProductPage = (props) => {
   const [selectedColors, setSelectedColors] = React.useState([]);
   const [selectedSizes, setSelectedSizes] = React.useState([]);
 
-  //todo: convert this to objects
-  const [boutiques, setBoutiques] = React.useState([
-    "Бутик 1",
-    "Бутик 2",
-    "Бутик 3",
-  ]);
+  const [boutiques, setBoutiques] = React.useState([]);
 
   const [editResponse, setEditResponse] = React.useState(null);
   const [productDetails, setProductDetails] = React.useState([]);
 
-  //todo: finish this
   const submitData = () => {
     const data = {
       name: productName,
       description: productDescription,
       price: productPrice,
-      collection: selectedProductCollections,
-      amountInStock: 250,
+      collections: selectedProductCollections,
+      amountInStock: totalStock,
       supplierName: productBoutique,
+      ribbon: productRibbon,
+      care: productCare,
+      materials: productMaterials,
       productDetails: productDetails,
     };
     axios
@@ -56,6 +49,7 @@ const AddProductPage = (props) => {
         console.log(response);
         alert("Succesfully added product\n" + response.data);
       });
+    console.log(data);
   };
 
   //this is NOT used here, will be used in EditProduct.js in the future
@@ -79,6 +73,8 @@ const AddProductPage = (props) => {
     productPrice,
     setProductPrice,
     setProductDescription,
+    setProductCare,
+    setProductMaterials,
     productColors,
     setProductColors,
     selectedColors,
@@ -95,6 +91,9 @@ const AddProductPage = (props) => {
     setProductBoutique,
     productDetails,
     setProductDetails,
+    totalStock,
+    setTotalStock,
+    setProductRibbon,
   };
   return (
     <AdminLayout>

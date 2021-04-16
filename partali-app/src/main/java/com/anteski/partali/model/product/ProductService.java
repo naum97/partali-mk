@@ -2,8 +2,8 @@ package com.anteski.partali.model.product;
 
 import com.anteski.partali.dto.product.ProductDto;
 import com.anteski.partali.dto.product_details.ProductDetailsDTO;
-import com.anteski.partali.model.product_category.ProductCategory;
-import com.anteski.partali.model.product_category.ProductCategoryService;
+import com.anteski.partali.model.product_collection.ProductCollection;
+import com.anteski.partali.model.product_collection.ProductCollectionService;
 import com.anteski.partali.model.product_details.ProductDetails;
 import com.anteski.partali.model.supplier.Supplier;
 import com.anteski.partali.model.supplier.SupplierService;
@@ -25,11 +25,11 @@ public class ProductService {
     private SupplierService supplierService;
 
     @Autowired
-    private ProductCategoryService productCategoryService;
+    private ProductCollectionService productCollectionService;
 
-    protected List<Product> getAllProductsInCategory(String category){
-        ProductCategory productCategory = productCategoryService.getProductCategoryByName(category);
-        return productRepository.findAllByProductCategoriesIn(Collections.singleton(productCategory)).orElseThrow();
+    protected List<Product> getAllProductsInCollection(String collection){
+        ProductCollection productCollection = productCollectionService.getProductCollectionByName(collection);
+        return productRepository.findAllByProductCollectionsIn(Collections.singleton(productCollection)).orElseThrow();
     }
 
     protected Product getProductById(Long id){
@@ -77,8 +77,8 @@ public class ProductService {
         productEntity.setDescription(productDto.getDescription());
         productEntity.setName(productDto.getName());
 
-        Set<ProductCategory> productCategorySet = productCategoryService.getProductCategoriesFromList(productDto.getCollections());
-        productEntity.setProductCategoryRelationship(productCategorySet);
+        Set<ProductCollection> productCollectionSet = productCollectionService.getProductCollectionsFromList(productDto.getCollections());
+        productEntity.setProductCategoryRelationship(productCollectionSet);
 
         Supplier supplier = supplierService.getSupplierByName(productDto.getSupplierName());
         productEntity.setSupplier(supplier);

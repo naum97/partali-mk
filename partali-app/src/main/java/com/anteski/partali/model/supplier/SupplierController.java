@@ -1,5 +1,6 @@
 package com.anteski.partali.model.supplier;
 
+import com.anteski.partali.dto.supplier.SupplierDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +27,13 @@ public class SupplierController {
         return supplierService.addSupplier(supplier);
     }
 
+    @PostMapping(value = "/add-supplier", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    @CrossOrigin
+    public Supplier addSupplier(@RequestBody SupplierDTO supplierDTO) {
+        return supplierService.addSupplier(supplierDTO);
+    }
+
     @PostMapping(value = "/{id}")
     public Supplier getSupplier(@PathVariable Long id){
         return supplierService.getSupplierById(id);
@@ -34,6 +42,12 @@ public class SupplierController {
     @PostMapping
     public List<Supplier> getAllSuppliers(){
         return supplierService.getAllSuppliers();
+    }
+
+    @GetMapping(value = "/names")
+    @CrossOrigin
+    public List<String> getAllSupplierNames() {
+        return supplierService.getAllSupplierNames();
     }
 
     @DeleteMapping(value = "/{id}")

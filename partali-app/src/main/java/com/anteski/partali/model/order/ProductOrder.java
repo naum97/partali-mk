@@ -3,7 +3,6 @@ package com.anteski.partali.model.order;
 import com.anteski.partali.model.BaseEntity;
 import com.anteski.partali.model.order_item.OrderItem;
 import com.anteski.partali.model.user.Customer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

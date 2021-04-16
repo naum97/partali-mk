@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import WhiteContainer from "../../../../components/Admin/WhiteContainer/WhiteContainer";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
@@ -16,7 +16,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
 import AdminProductContext from "../../../../context/AdminProductContext";
-
+import axios from "axios";
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
@@ -30,32 +30,48 @@ const ProductCollections = () => {
   const classes = useStyles();
 
   const [showCollectionDialog, setShowCollectionDialog] = React.useState(false);
-  const [newCollection, setnewCollection] = React.useState("");
+  const [newCollection, setNewCollection] = React.useState(null);
 
-  const [errorState, setErrorState] = React.useState(false);
+  const [errorState, setErrorState] = React.useState(null);
 
-  //todo: this should go in database
-  const addCategory = (event) => {
+  // fetch collections from backend on component mount
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/api/v1/collections/names")
+      .then((response) => {
+        context.setProductCollections(response.data);
+      });
+  }, []);
+
+  const addCollection = (event) => {
     event.preventDefault();
     if (!newCollection || !newCollection.length) {
-      alert("New product category can't be empty!");
-      setErrorState(true);
+      setErrorState("New product collection can't be empty!");
       return;
     }
     if (context.productCollections.includes(newCollection)) {
-      alert(
+      setErrorState(
         "Category " + newCollection + " already exists. Please add new one!"
       );
-      setErrorState(true);
       return;
     }
-    context.setProductCollections([
-      ...context.productCollections,
-      newCollection,
-    ]);
-    alert("Succesfully added category " + newCollection);
-    setErrorState(false);
+
+    axios
+      .post("http://localhost:8080/api/v1/collections/" + newCollection.trim())
+      .then(() => {
+        context.setProductCollections([
+          ...context.productCollections,
+          newCollection,
+        ]);
+        alert("Succesfully added category " + newCollection);
+      })
+      .finally(() => reset());
+  };
+
+  const reset = () => {
+    setErrorState(null);
     setShowCollectionDialog(false);
+    setNewCollection(null);
   };
 
   return (
@@ -92,10 +108,10 @@ const ProductCollections = () => {
               type="text"
               fullWidth
               error={errorState}
-              helperText={errorState ? "Please enter collection name" : ""}
+              helperText={errorState}
               onChange={(event) => {
                 setErrorState(false);
-                setnewCollection(event.target.value);
+                setNewCollection(event.target.value);
               }}
             />
           </DialogContent>
@@ -108,7 +124,7 @@ const ProductCollections = () => {
             </Button>
             <Button
               type="submit"
-              onClick={(event) => addCategory(event)}
+              onClick={(event) => addCollection(event)}
               color="primary"
             >
               Add

@@ -6,6 +6,8 @@ const context = {
   productPrice: 0,
   setProductPrice: () => {},
   setProductDescription: () => {},
+  setProductCare: () => {},
+  setProductMaterials: () => {},
   productColors: [],
   setProductColors: () => {},
   selectedColors: [],
@@ -22,6 +24,9 @@ const context = {
   setProductBoutique: () => {},
   productDetails: [],
   setProductDetails: () => {},
+  totalStock: 0,
+  setTotalStock: () => {},
+  setProductRibbon: () => {},
 };
 
 const AdminProductContext = React.createContext(context);

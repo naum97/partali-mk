@@ -2,13 +2,13 @@
 -- ***************************************************;
 
 
--- ************************************** product_category
+-- ************************************** product_collection
 
-CREATE TABLE product_category
+CREATE TABLE product_collection
 (
  id bigint NOT NULL GENERATED ALWAYS AS IDENTITY (START 1),
- category text NOT NULL,
- CONSTRAINT PK_product_category PRIMARY KEY ( id )
+ collection text NOT NULL,
+ CONSTRAINT PK_product_collection PRIMARY KEY ( id )
 );
 
 

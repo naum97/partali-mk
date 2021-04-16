@@ -1,21 +1,18 @@
 package com.anteski.partali.model.product;
 
 import com.anteski.partali.model.BaseEntity;
-import com.anteski.partali.model.order_item.OrderItem;
-import com.anteski.partali.model.product_category.ProductCategory;
+import com.anteski.partali.model.product_collection.ProductCollection;
 import com.anteski.partali.model.product_details.ProductDetails;
 import com.anteski.partali.model.product_image_refs.ProductImageRefs;
 import com.anteski.partali.model.product_review.ProductReview;
 import com.anteski.partali.model.supplier.Supplier;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -63,22 +60,22 @@ public class Product extends BaseEntity {
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JsonBackReference
     @JoinTable(
-            name = "category_product",
+            name = "collection_product",
             joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "category_id")
+            inverseJoinColumns = @JoinColumn(name = "collection_id")
     )
-    private Set<ProductCategory> productCategories = new LinkedHashSet<>();
+    private Set<ProductCollection> productCollections = new LinkedHashSet<>();
 
     public void setProductDetailsRelationship(ProductDetails productDetails){
         productDetails.setProduct(this);
         this.getProductDetails().add(productDetails);
     }
 
-    public void setProductCategoryRelationship(Set<ProductCategory> productCategories){
-        for(ProductCategory category: productCategories){
-            category.getProducts().add(this);
+    public void setProductCategoryRelationship(Set<ProductCollection> productCollections){
+        for(ProductCollection collection: productCollections){
+            collection.getProducts().add(this);
         }
-        this.setProductCategories(productCategories);
+        this.setProductCollections(productCollections);
     }
 
 }

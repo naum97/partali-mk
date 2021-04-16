@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Chip from "@material-ui/core/Chip";
 import Autocomplete, {
   createFilterOptions,
@@ -21,6 +21,7 @@ const MultiSelector = (props) => {
     if (!Array.isArray(newArray) || !newArray.length) {
       return;
     }
+    console.log(newArray);
     props.handleSelections([...props.list, newArray.join(",")]);
   };
   const classes = useStyles();
@@ -30,8 +31,8 @@ const MultiSelector = (props) => {
       handleHomeEndKeys
       clearOnBlur
       selectOnFocus
+      filterSelectedOptions
       className={classes.multiSelect}
-      id="tags-filled"
       options={props.list.map((option) => option)}
       freeSolo
       onChange={(event, newValue) => handleChange(newValue)}

@@ -27,13 +27,13 @@ public class ProductController {
     }
 
     @GetMapping
-    public List<ProductDto> getAllProducts() throws InterruptedException {
+    public List<ProductDto> getAllProducts() {
         return productService.getAllProducts();
     }
 
-    @GetMapping(params = "category")
-    public List<Product> getAllProductsInCategory(@RequestParam String category){
-        return productService.getAllProductsInCategory(category);
+    @GetMapping(params = "collection")
+    public List<Product> getAllProductsInCollection(@RequestParam String collection){
+        return productService.getAllProductsInCollection(collection);
     }
 
     @PostMapping(value = "/add-product", consumes = MediaType.APPLICATION_JSON_VALUE)

@@ -3,8 +3,6 @@ package com.anteski.partali.model.product_details;
 import com.anteski.partali.model.BaseEntity;
 import com.anteski.partali.model.product.Product;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
