@@ -47,7 +47,7 @@ const AddProductPage = (props) => {
       .post("http://localhost:8080/api/v1/products/add-product", data)
       .then((response) => {
         console.log(response);
-        alert("Succesfully added product\n" + response.data);
+        alert("Succesfully added product\n" + response.data.name);
       });
     console.log(data);
   };

@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SizeService {
@@ -12,7 +13,7 @@ public class SizeService {
     @Autowired
     private SizeRepository sizeRepository;
 
-    public Size getSize(String size){
+    public Optional<Size> getSize(String size){
         return sizeRepository.findBySize(size);
     }
 
@@ -24,5 +25,9 @@ public class SizeService {
         Size sizeEntity = new Size();
         sizeEntity.setSize(size);
         return sizeRepository.save(sizeEntity);
+    }
+
+    public boolean sizeExists(String size){
+        return sizeRepository.existsBySize(size.toUpperCase());
     }
 }

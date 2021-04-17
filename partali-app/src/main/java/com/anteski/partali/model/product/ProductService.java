@@ -2,18 +2,19 @@ package com.anteski.partali.model.product;
 
 import com.anteski.partali.dto.product.ProductDto;
 import com.anteski.partali.dto.product_details.ProductDetailsDTO;
+import com.anteski.partali.model.color.Color;
+import com.anteski.partali.model.color.ColorService;
 import com.anteski.partali.model.product_collection.ProductCollection;
 import com.anteski.partali.model.product_collection.ProductCollectionService;
 import com.anteski.partali.model.product_details.ProductDetails;
+import com.anteski.partali.model.size.Size;
+import com.anteski.partali.model.size.SizeService;
 import com.anteski.partali.model.supplier.Supplier;
 import com.anteski.partali.model.supplier.SupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class ProductService {
@@ -23,6 +24,12 @@ public class ProductService {
 
     @Autowired
     private SupplierService supplierService;
+
+    @Autowired
+    private ColorService colorService;
+
+    @Autowired
+    private SizeService sizeService;
 
     @Autowired
     private ProductCollectionService productCollectionService;
@@ -71,28 +78,98 @@ public class ProductService {
         return productDTOS;
     }
 
+    //todo: add relationship between color size and collection
     public Product addProduct(ProductDto productDto) {
+
+        // initialize product entity from productDTO request from front-end
+        Product productEntity = initializeProduct(productDto);
+
+        // get product collections entities -> these will be guaranteed to exist as the dropdown list will be populated
+        // from the database on load of front-end
+        Set<ProductCollection> productCollectionSet = productCollectionService.getProductCollectionsFromList(productDto.getCollections());
+        productEntity.setProductCollections(productCollectionSet);
+
+        // as above -> supplier must exists already
+        Supplier supplier = supplierService.getSupplierByName(productDto.getSupplierName());
+        productEntity.setSupplier(supplier);
+
+        List<ProductDetailsDTO> productDetails = productDto.getProductDetails();
+
+        // iterate through product details
+        for(ProductDetailsDTO productDetailsDTO : productDetails){
+
+            ProductDetails productDetailsEntity = initializeProductDetails(productDetailsDTO);
+
+            // attach ProductDetails to Product
+            productEntity.setAmountInStock(productEntity.getAmountInStock() + productDetailsDTO.getStock());
+            productEntity.setProductDetailsRelationship(productDetailsEntity);
+
+
+            setSizeAndColorInCollections(productCollectionSet,
+                    productDetailsEntity.getColor(),
+                    productDetailsEntity.getSize()
+            );
+        }
+
+        return productRepository.save(productEntity);
+    }
+
+    private Product initializeProduct(ProductDto productDto) {
         Product productEntity = new Product();
         productEntity.setPrice(productDto.getPrice());
         productEntity.setDescription(productDto.getDescription());
         productEntity.setName(productDto.getName());
+        productEntity.setCare(productDto.getCare());
+        productEntity.setMaterials(productDto.getMaterials());
+        return productEntity;
+    }
 
-        Set<ProductCollection> productCollectionSet = productCollectionService.getProductCollectionsFromList(productDto.getCollections());
-        productEntity.setProductCategoryRelationship(productCollectionSet);
+    private ProductDetails initializeProductDetails(ProductDetailsDTO productDetailsDTO){
+        return new ProductDetails(
+                productDetailsDTO.getColor().toLowerCase(),
+                productDetailsDTO.getSize().toUpperCase(),
+                productDetailsDTO.getStock()
+        );
 
-        Supplier supplier = supplierService.getSupplierByName(productDto.getSupplierName());
-        productEntity.setSupplier(supplier);
 
 
-        for(ProductDetailsDTO productDetailsDTO : productDto.getProductDetails()){
-            ProductDetails productDetailsEntity = new ProductDetails();
-            productDetailsEntity.setColor(productDetailsDTO.getColor());
-            productDetailsEntity.setSize(productDetailsDTO.getSize());
-            productDetailsEntity.setStock(productDetailsDTO.getStock());
-            productEntity.setAmountInStock(productEntity.getAmountInStock() + productDetailsDTO.getStock());
-            productEntity.setProductDetailsRelationship(productDetailsEntity);
+    }
+
+    private void setSizeAndColorInCollections(Set<ProductCollection> productCollectionSet, String colorName, String sizeName) {
+
+        Map<String, Color> tempColorMap = new HashMap<>();
+        Map<String, Size>  tempSizeMap = new HashMap<>();
+        for(ProductCollection collection: productCollectionSet){
+
+            // get color if exists, if not create new one
+            // searches in this order:
+            // 1. in colors associated with current collection
+            // 2. in color table in database
+            // 3. in tempColorMap -> used when adding new color
+            Color colorEntity = collection.getColors().stream()
+                    .filter(color -> color.getColor().equalsIgnoreCase(colorName))
+                    .findFirst()
+                    .orElse(colorService.getColor(colorName)
+                            .orElse(tempColorMap.get(colorName)));
+
+            if(colorEntity == null){
+                colorEntity = new Color(colorName);
+            }
+
+            // get size if exists, if not create new one
+            Size sizeEntity = collection.getSizes().stream()
+                    .filter(size -> size.getSize().equalsIgnoreCase(sizeName))
+                    .findFirst()
+                    .orElse(sizeService.getSize(sizeName)
+                            .orElse(tempSizeMap.get(sizeName)));
+
+            if(sizeEntity == null){
+                sizeEntity = new Size(sizeName);
+            }
+
+            collection.setColorAndSizeRelationship(colorEntity, sizeEntity);
+            tempColorMap.put(colorName, colorEntity);
+            tempSizeMap.put(sizeName, sizeEntity);
         }
-
-        return productRepository.save(productEntity);
     }
 }

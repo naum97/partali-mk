@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ColorService {
@@ -11,7 +12,7 @@ public class ColorService {
     @Autowired
     private ColorRepository colorRepository;
 
-    public Color getColor(String color){
+    public Optional<Color> getColor(String color){
         return colorRepository.findByColor(color);
     }
 
@@ -23,5 +24,9 @@ public class ColorService {
         Color colorEntity = new Color();
         colorEntity.setColor(color);
         return colorRepository.save(colorEntity);
+    }
+
+    public boolean colorExists(String color){
+        return colorRepository.existsByColor(color.toLowerCase());
     }
 }

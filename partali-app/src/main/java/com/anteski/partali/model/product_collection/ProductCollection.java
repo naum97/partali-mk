@@ -44,4 +44,12 @@ public class ProductCollection extends BaseEntity {
             inverseJoinColumns = @JoinColumn(name = "size_id")
     )
     private Set<Size> sizes = new LinkedHashSet<>();
+
+    public void setColorAndSizeRelationship(Color colorEntity, Size sizeEntity) {
+        this.getColors().add(colorEntity);
+        this.getSizes().add(sizeEntity);
+
+        colorEntity.getProductCollectionSet().add(this);
+        sizeEntity.getProductCollections().add(this);
+    }
 }

@@ -21,10 +21,14 @@ import java.util.Set;
 @Table(name = "product_sizes")
 public class Size extends BaseEntity {
 
-    @Column(name = "product_size")
+    @Column(name = "product_size", unique = true)
     private String size;
 
     @ManyToMany(mappedBy = "sizes", targetEntity = ProductCollection.class)
     @JsonBackReference
     private Set<ProductCollection> productCollections = new LinkedHashSet<>();
+
+    public Size(String size) {
+        this.size = size;
+    }
 }

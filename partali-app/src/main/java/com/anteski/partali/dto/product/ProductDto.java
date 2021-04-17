@@ -55,6 +55,12 @@ public class ProductDto {
     @JsonProperty(value = "productDetails")
     private List<ProductDetailsDTO> productDetails;
 
+    @JsonProperty(value = "colors")
+    private List<String> colors;
+
+    @JsonProperty(value = "sizes")
+    private List<String> sizes;
+
     public ProductDto(Long id, String name, Long price, Long amountInStock) {
         this.id = id;
         this.name = name;

@@ -16,13 +16,27 @@ const useStyles = makeStyles((theme) => ({
 
 const MultiSelector = (props) => {
   const handleChange = (newValue) => {
+    // if user clicks on Add "color" remove the "Add" substring as it is not needed
+    if (newValue.length > 0) {
+      let lastItem = newValue[newValue.length - 1];
+      lastItem = lastItem.includes("Add") ? lastItem.split('"')[1] : lastItem;
+      newValue[newValue.length - 1] = lastItem;
+    }
+
     props.selected(newValue);
-    const newArray = newValue.filter((item) => !props.list.includes(item));
+    const newArray = newValue.filter(
+      (item) => !props.list.includes(item.toLowerCase())
+    );
     if (!Array.isArray(newArray) || !newArray.length) {
       return;
     }
-    console.log(newArray);
-    props.handleSelections([...props.list, newArray.join(",")]);
+
+    props.handleSelections([
+      ...props.list,
+      props.colorFilter
+        ? newArray.map((item) => item.toLowerCase()).join(",")
+        : newArray.map((item) => item.toUpperCase()).join(","),
+    ]);
   };
   const classes = useStyles();
   return (

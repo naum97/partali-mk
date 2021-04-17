@@ -70,12 +70,4 @@ public class Product extends BaseEntity {
         productDetails.setProduct(this);
         this.getProductDetails().add(productDetails);
     }
-
-    public void setProductCategoryRelationship(Set<ProductCollection> productCollections){
-        for(ProductCollection collection: productCollections){
-            collection.getProducts().add(this);
-        }
-        this.setProductCollections(productCollections);
-    }
-
 }

@@ -5,6 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface SizeRepository extends CrudRepository<Size, Long> {
@@ -13,5 +14,7 @@ public interface SizeRepository extends CrudRepository<Size, Long> {
     @Query(value = GET_ALL_SIZE_NAMES, nativeQuery = true)
     List<String> findAllSizeNames();
 
-    Size findBySize(String size);
+    Optional<Size> findBySize(String size);
+
+    boolean existsBySize(String size);
 }

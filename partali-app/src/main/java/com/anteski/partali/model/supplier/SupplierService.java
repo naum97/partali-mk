@@ -14,7 +14,9 @@ public class SupplierService {
     private SupplierRepository supplierRepository;
 
     public List<Supplier> getAllSuppliers(){
-        return supplierRepository.findAllByOrderByIdAsc();
+        List<Supplier> suppliers = supplierRepository.findAllByOrderByIdAsc();
+        return suppliers;
+//        return supplierRepository.findAllByOrderByIdAsc();
     }
 
     public Supplier addSupplier(Supplier supplier){

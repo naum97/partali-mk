@@ -21,13 +21,13 @@ VALUES ('Капути');
 
 --add colors
 INSERT INTO product_colors(product_color)
-VALUES ('Red');
+VALUES ('red');
 
 INSERT INTO product_colors(product_color)
-VALUES ('Green');
+VALUES ('green');
 
 INSERT INTO product_colors(product_color)
-VALUES ('Blue');
+VALUES ('blue');
 
 --add sizes
 INSERT INTO product_sizes(product_size)

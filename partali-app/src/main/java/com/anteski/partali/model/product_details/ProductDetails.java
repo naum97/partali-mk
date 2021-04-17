@@ -24,9 +24,14 @@ public class ProductDetails extends BaseEntity {
     @Column(name = "stock")
     private Long stock;
 
-    //todo: see if json ignore is needed here
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
     @JsonBackReference
     private Product product;
+
+    public ProductDetails(String color, String size, Long stock){
+        this.color = color;
+        this.size = size;
+        this.stock = stock;
+    }
 }
